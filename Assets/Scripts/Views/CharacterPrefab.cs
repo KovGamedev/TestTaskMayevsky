@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Scorewarrior.Test.Descriptors;
+using Scorewarrior.Test.Models;
+using UnityEngine;
 
 namespace Scorewarrior.Test.Views
 {
@@ -10,7 +12,31 @@ namespace Scorewarrior.Test.Views
 		[SerializeField]
 		private Transform _rightPalm;
 
-		public void Update()
+		public void PlayIdle()
+		{
+            Animator.SetBool("aiming", false);
+            Animator.SetBool("reloading", false);
+        }
+
+		public void PlayAiming()
+		{
+            Animator.SetBool("aiming", true);
+            Animator.SetBool("reloading", false);
+        }
+
+        public void PlayShot()
+        {
+            Animator.SetTrigger("shoot");
+        }
+
+		public void PlayReloading(float reloadDuration)
+		{
+            Animator.SetBool("aiming", true);
+			Animator.SetBool("reloading", true);
+            Animator.SetFloat("reload_time", reloadDuration);
+        }
+
+        private void Update()
 		{
 			if (_rightPalm != null && Weapon != null)
 			{

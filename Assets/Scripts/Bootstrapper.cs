@@ -14,12 +14,12 @@ namespace Scorewarrior.Test
 
 		private Battlefield _battlefield;
 
-		public void Start()
+		private void Start()
 		{
-			Dictionary<uint, List<Vector3>> spawnPositionsByTeam = new Dictionary<uint, List<Vector3>>();
+			var spawnPositionsByTeam = new Dictionary<uint, List<Vector3>>();
 			foreach (SpawnPoint spawn in _spawns)
 			{
-				uint team = spawn.Team;
+				var team = spawn.Team;
 				if (spawnPositionsByTeam.TryGetValue(team, out List<Vector3> spawnPoints))
 				{
 					spawnPoints.Add(spawn.transform.position);
@@ -34,11 +34,9 @@ namespace Scorewarrior.Test
 			_battlefield.Start(_characters);
 		}
 
-		public void Update()
+        private void Update()
 		{
 			_battlefield.Update(Time.deltaTime);
 		}
-
-
 	}
 }

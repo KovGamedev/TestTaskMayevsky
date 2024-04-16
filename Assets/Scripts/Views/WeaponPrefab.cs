@@ -3,19 +3,18 @@ using UnityEngine;
 
 namespace Scorewarrior.Test.Views
 {
-	public class WeaponPrefab : MonoBehaviour
-	{
-		public Transform BarrelTransform;
+    public class WeaponPrefab : MonoBehaviour
+    {
+        [SerializeField]
+        private Transform _barrelTransform;
+        [SerializeField]
+        private GameObject _bulletPrefab;
 
-		[SerializeField]
-		private GameObject _bulletPrefab;
-
-		public void Fire(Character character, bool hit)
-		{
-			GameObject bulletObject = Instantiate(_bulletPrefab, BarrelTransform);
-			BulletPrefab bullet = bulletObject.GetComponent<BulletPrefab>();
-			bullet.transform.position = BarrelTransform.position;
-			bullet.Init(this, character, hit);
-		}
-	}
+        public void Fire(Character character, bool hit)
+        {
+            Instantiate(_bulletPrefab, _barrelTransform.position, Quaternion.identity, _barrelTransform)
+                .GetComponent<BulletPrefab>()
+                .Init(this, character, hit);
+        }
+    }
 }

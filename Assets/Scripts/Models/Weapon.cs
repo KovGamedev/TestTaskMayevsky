@@ -5,52 +5,53 @@ namespace Scorewarrior.Test.Models
 {
 	public class Weapon
 	{
-		private readonly WeaponPrefab _prefab;
+		public WeaponPrefab Prefab { get; private set; }
+        public bool IsReady { get; private set; }
 
-		private uint _ammo;
+        private uint _ammo;
+        private uint _ammoMax;
+		private float _reloadTime;
+		private float _fireRate;
 
-		private bool _ready;
-		private float _time;
-
-		public Weapon(WeaponPrefab prefab)
+        public Weapon(WeaponPrefab prefab)
 		{
-			_prefab = prefab;
-			_ammo = _prefab.GetComponent<WeaponDescriptor>().ClipSize;
-		}
+            Prefab = prefab;
+			var descriptor = Prefab.GetComponent<WeaponDescriptor>();
+            _ammo = descriptor.ClipSize;
+			_fireRate = descriptor.FireRate;
+            _ammoMax = descriptor.ClipSize;
+        }
 
-		public bool IsReady => _ready;
 		public bool HasAmmo => _ammo > 0;
-
-		public WeaponPrefab Prefab => _prefab;
 
 		public void Reload()
 		{
-			_ammo = _prefab.GetComponent<WeaponDescriptor>().ClipSize;
+			_ammo = _ammoMax;
 		}
 
 		public void Fire(Character character, bool hit)
 		{
-			if (_ammo > 0)
-			{
-				_ammo -= 1;
-				_prefab.Fire(character, hit);
-				_time = 1.0f / _prefab.GetComponent<WeaponDescriptor>().FireRate;
-				_ready = false;
-			}
+			if (!HasAmmo)
+				return;
+
+			_ammo--;
+            Prefab.Fire(character, hit);
+			_reloadTime = 1.0f / _fireRate;
+            IsReady = false;
 		}
 
 		public void Update(float deltaTime)
 		{
-			if (!_ready)
+			if (IsReady)
+				return;
+
+			if (_reloadTime > 0)
 			{
-				if (_time > 0)
-				{
-					_time -= deltaTime;
-				}
-				else
-				{
-					_ready = true;
-				}
+				_reloadTime -= deltaTime;
+			}
+			else
+			{
+                IsReady = true;
 			}
 		}
 	}
