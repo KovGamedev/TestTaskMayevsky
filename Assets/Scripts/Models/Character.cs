@@ -22,7 +22,8 @@ namespace Scorewarrior.Test.Models
             Idle,
             Aiming,
             Shooting,
-            Reloading
+            Reloading,
+            Death
         }
 
         public Character(CharacterPrefab prefab, Weapon weapon, Battlefield battlefield)
@@ -33,6 +34,23 @@ namespace Scorewarrior.Test.Models
             CharacterDescriptor descriptor = Prefab.GetComponent<CharacterDescriptor>();
             Health = descriptor.MaxHealth;
             Armor = descriptor.MaxArmor;
+        }
+
+        public void GetDamage(float damage)
+        {
+            if (Armor > 0)
+            {
+                Armor -= damage;
+            }
+            else if (Health > 0)
+            {
+                Health -= damage;
+            }
+            if (!IsAlive)
+            {
+                _state = State.Death;
+                Prefab.PlayDeath();
+            }
         }
 
         public bool IsAlive => Health > 0 || Armor > 0;

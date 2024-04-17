@@ -40,21 +40,8 @@ namespace Scorewarrior.Test.Views
             {
                 if (_hit)
                 {
-                    WeaponDescriptor weaponDescriptor = _weapon.GetComponent<WeaponDescriptor>();
-                    CharacterDescriptor targetDescriptor = _target.Prefab.GetComponent<CharacterDescriptor>();
-                    float damage = weaponDescriptor.Damage;
-                    if (_target.Armor > 0)
-                    {
-                        _target.Armor -= damage;
-                    }
-                    else if (_target.Health > 0)
-                    {
-                        _target.Health -= damage;
-                    }
-                    if (_target.Armor <= 0 && _target.Health <= 0)
-                    {
-                        _target.Prefab.Animator.SetTrigger("die");
-                    }
+                    var weaponDescriptor = _weapon.GetComponent<WeaponDescriptor>();
+                    _target.GetDamage(weaponDescriptor.Damage);
                 }
                 Destroy(gameObject);
             }

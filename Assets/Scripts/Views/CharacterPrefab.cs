@@ -1,7 +1,6 @@
 ﻿using Scorewarrior.Test.Descriptors;
 using Scorewarrior.Test.Models;
 using UnityEngine;
-
 namespace Scorewarrior.Test.Views
 {
 	public class CharacterPrefab : MonoBehaviour
@@ -35,5 +34,10 @@ namespace Scorewarrior.Test.Views
 			Animator.SetBool("reloading", true);
             Animator.SetFloat("reload_time", reloadDuration);
         }
-	}
+
+		public void PlayDeath()
+		{
+            Animator.SetTrigger("die");
+        }
+    }
 }
