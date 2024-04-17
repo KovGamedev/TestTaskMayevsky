@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7635542370678243084}
   - component: {fileID: 8466558729671034309}
-  - component: {fileID: 5158659840354725394}
   m_Layer: 8
   m_Name: IndianWeapon
   m_TagString: Untagged
@@ -79,23 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _barrelTransform: {fileID: 4535963522748100324}
   _bulletPrefab: {fileID: 8256470978176610155, guid: 9b7ee3ebe18995f44983326e18a9514e, type: 3}
---- !u!114 &5158659840354725394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6894373914595462431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09783095c52849c38730af53dc5a534e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 12
-  Accuracy: 0.85
-  FireRate: 0.5
-  ClipSize: 10
-  ReloadTime: 6
+  _config: {fileID: 11400000, guid: eea5e808974dc2e40924a36a7aaec028, type: 2}
 --- !u!1001 &3161732628955201020
 PrefabInstance:
   m_ObjectHideFlags: 0

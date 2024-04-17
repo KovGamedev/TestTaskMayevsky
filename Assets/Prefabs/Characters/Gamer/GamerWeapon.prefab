@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 580412190287345662}
   - component: {fileID: 2439050241734887919}
-  - component: {fileID: 1364199540341921061}
   m_Layer: 8
   m_Name: GamerWeapon
   m_TagString: Untagged
@@ -48,23 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _barrelTransform: {fileID: 6891360539160034660}
   _bulletPrefab: {fileID: 8256470978176610155, guid: 9b7ee3ebe18995f44983326e18a9514e, type: 3}
---- !u!114 &1364199540341921061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459277885495194733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09783095c52849c38730af53dc5a534e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 10
-  Accuracy: 0.9
-  FireRate: 0.4
-  ClipSize: 10
-  ReloadTime: 5
+  _config: {fileID: 11400000, guid: 7461f92923a43c54397d5f4f6948efcd, type: 2}
 --- !u!1 &4798669743595326290
 GameObject:
   m_ObjectHideFlags: 0

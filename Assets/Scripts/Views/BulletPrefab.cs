@@ -40,8 +40,7 @@ namespace Scorewarrior.Test.Views
             {
                 if (_hit)
                 {
-                    var weaponDescriptor = _weapon.GetComponent<WeaponDescriptor>();
-                    _target.GetDamage(weaponDescriptor.Damage);
+                    _target.GetDamage(_weapon.GetConfig().GetDamage());
                 }
                 Destroy(gameObject);
             }

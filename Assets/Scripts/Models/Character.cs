@@ -124,7 +124,7 @@ namespace Scorewarrior.Test.Models
                     {
                         float random = Random.Range(0.0f, 1.0f);
                         bool hit = random <= Prefab.GetComponent<CharacterDescriptor>().Accuracy &&
-                                random <= _weapon.Prefab.GetComponent<WeaponDescriptor>().Accuracy &&
+                                random <= _weapon.Prefab.GetConfig().GetAccuracy() &&
                                 random >= _currentTarget.Prefab.GetComponent<CharacterDescriptor>().Dexterity;
                         _weapon.Fire(_currentTarget, hit);
                         Prefab.PlayShot();
@@ -137,7 +137,7 @@ namespace Scorewarrior.Test.Models
                 else
                 {
                     _state = State.Reloading;
-                    _time = _weapon.Prefab.GetComponent<WeaponDescriptor>().ReloadTime;
+                    _time = _weapon.Prefab.GetConfig().GetReloadTime();
                 }
             }
             else
@@ -148,7 +148,7 @@ namespace Scorewarrior.Test.Models
 
         private void HandleReloadingState(float deltaTime)
         {
-            Prefab.PlayReloading(_weapon.Prefab.GetComponent<WeaponDescriptor>().ReloadTime / 3.3f);
+            Prefab.PlayReloading(_weapon.Prefab.GetConfig().GetReloadTime() / 3.3f);
             if (_time > 0)
             {
                 _time -= deltaTime;

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3032610760669008326}
   - component: {fileID: 2326283250749263236}
-  - component: {fileID: 7720045050083055998}
   m_Layer: 8
   m_Name: SniperWeapon
   m_TagString: Untagged
@@ -48,23 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _barrelTransform: {fileID: 7985765005007216794}
   _bulletPrefab: {fileID: 8256470978176610155, guid: 9b7ee3ebe18995f44983326e18a9514e, type: 3}
---- !u!114 &7720045050083055998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2952856303988018656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09783095c52849c38730af53dc5a534e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 15
-  Accuracy: 0.95
-  FireRate: 0.1
-  ClipSize: 5
-  ReloadTime: 6
+  _config: {fileID: 11400000, guid: f5d7388fbabacf6409a20e97ef32ae5b, type: 2}
 --- !u!1 &5094451911426479266
 GameObject:
   m_ObjectHideFlags: 0

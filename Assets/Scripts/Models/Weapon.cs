@@ -16,10 +16,10 @@ namespace Scorewarrior.Test.Models
         public Weapon(WeaponPrefab prefab)
 		{
             Prefab = prefab;
-			var descriptor = Prefab.GetComponent<WeaponDescriptor>();
-            _ammo = descriptor.ClipSize;
-			_fireRate = descriptor.FireRate;
-            _ammoMax = descriptor.ClipSize;
+			var config = Prefab.GetConfig();
+            _ammo = config.GetClipSize();
+			_fireRate = config.GetFireRate();
+            _ammoMax = config.GetClipSize();
         }
 
 		public bool HasAmmo => _ammo > 0;
