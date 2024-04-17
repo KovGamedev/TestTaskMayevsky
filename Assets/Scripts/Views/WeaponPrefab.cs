@@ -12,7 +12,7 @@ namespace Scorewarrior.Test.Views
 
         public void Fire(Character character, bool hit)
         {
-            Instantiate(_bulletPrefab, _barrelTransform.position, Quaternion.identity, _barrelTransform)
+            Instantiate(_bulletPrefab, _barrelTransform.position, _barrelTransform.rotation, _barrelTransform)
                 .GetComponent<BulletPrefab>()
                 .Init(this, character, hit);
         }

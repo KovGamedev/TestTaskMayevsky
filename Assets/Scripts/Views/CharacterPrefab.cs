@@ -35,14 +35,5 @@ namespace Scorewarrior.Test.Views
 			Animator.SetBool("reloading", true);
             Animator.SetFloat("reload_time", reloadDuration);
         }
-
-        private void Update()
-		{
-			if (_rightPalm != null && Weapon != null)
-			{
-				Weapon.transform.position = _rightPalm.position;
-				Weapon.transform.forward = _rightPalm.up;
-			}
-		}
 	}
 }

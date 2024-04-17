@@ -47,21 +47,21 @@ namespace Scorewarrior.Test.Models
             switch (_state)
             {
                 case State.Idle:
-                    PlayIdle();
+                    HandleIdleState();
                     break;
                 case State.Aiming:
-                    PlayAiming(deltaTime);
+                    HandleAimingState(deltaTime);
                     break;
                 case State.Shooting:
-                    PlayShooting(deltaTime);
+                    HandleShootingState(deltaTime);
                     break;
                 case State.Reloading:
-                    PlayReloading(deltaTime);
+                    HandleReloadingState(deltaTime);
                     break;
             }
         }
 
-        private void PlayIdle()
+        private void HandleIdleState()
         {
             Prefab.PlayIdle();
             if (_battlefield.TryGetNearestAliveEnemy(this, out Character target))
@@ -73,7 +73,7 @@ namespace Scorewarrior.Test.Models
             }
         }
 
-        private void PlayAiming(float deltaTime)
+        private void HandleAimingState(float deltaTime)
         {
             Prefab.PlayAiming();
             if (_currentTarget != null && _currentTarget.IsAlive)
@@ -95,7 +95,7 @@ namespace Scorewarrior.Test.Models
             }
         }
 
-        private void PlayShooting(float deltaTime)
+        private void HandleShootingState(float deltaTime)
         {
             Prefab.PlayAiming();
             if (_currentTarget != null && _currentTarget.IsAlive)
@@ -128,7 +128,7 @@ namespace Scorewarrior.Test.Models
             }
         }
 
-        private void PlayReloading(float deltaTime)
+        private void HandleReloadingState(float deltaTime)
         {
             Prefab.PlayReloading(_weapon.Prefab.GetComponent<WeaponDescriptor>().ReloadTime / 3.3f);
             if (_time > 0)

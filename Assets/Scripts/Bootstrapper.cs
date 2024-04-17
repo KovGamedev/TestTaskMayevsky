@@ -19,7 +19,7 @@ namespace Scorewarrior.Test
 			var spawnPositionsByTeam = new Dictionary<uint, List<Vector3>>();
 			foreach (SpawnPoint spawn in _spawns)
 			{
-				var team = spawn.Team;
+				var team = spawn.GetTeam();
 				if (spawnPositionsByTeam.TryGetValue(team, out List<Vector3> spawnPoints))
 				{
 					spawnPoints.Add(spawn.transform.position);

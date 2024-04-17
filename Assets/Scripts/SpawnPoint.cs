@@ -4,6 +4,8 @@ namespace Scorewarrior.Test
 {
 	public class SpawnPoint : MonoBehaviour
 	{
-		public uint Team;
+		[SerializeField] private uint _team;
+
+		public uint GetTeam() => _team;
 	}
 }
