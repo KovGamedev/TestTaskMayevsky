@@ -5,12 +5,9 @@ namespace Scorewarrior.Test.Views
 {
     public class WeaponPrefab : MonoBehaviour
     {
-        [SerializeField]
-        private Transform _barrelTransform;
-        [SerializeField]
-        private GameObject _bulletPrefab;
-        [SerializeField]
-        private WeaponConfig _config;
+        [SerializeField] private Transform _barrelTransform;
+        [SerializeField] private GameObject _bulletPrefab;
+        [SerializeField] private WeaponConfig _config;
 
         public void Fire(Character character, bool hit)
         {

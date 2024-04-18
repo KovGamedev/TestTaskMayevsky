@@ -1,43 +1,65 @@
-﻿using Scorewarrior.Test.Descriptors;
-using Scorewarrior.Test.Models;
-using UnityEngine;
+﻿using UnityEngine;
+
 namespace Scorewarrior.Test.Views
 {
 	public class CharacterPrefab : MonoBehaviour
 	{
-		public WeaponPrefab Weapon;
-		public Animator Animator;
+        [SerializeField] private WeaponPrefab _weapon;
+		[SerializeField] private Animator _animator;
+		[SerializeField] private Transform _rightPalm;
+        [SerializeField] private float _reloadingDurationMultiplier;
 
-		[SerializeField]
-		private Transform _rightPalm;
+        public WeaponPrefab GetWeapon() => _weapon;
 
-		public void PlayIdle()
-		{
-            Animator.SetBool("aiming", false);
-            Animator.SetBool("reloading", false);
-        }
-
-		public void PlayAiming()
-		{
-            Animator.SetBool("aiming", true);
-            Animator.SetBool("reloading", false);
-        }
-
-        public void PlayShot()
+        public void HandleState(CharacterState state)
         {
-            Animator.SetTrigger("shoot");
+            switch (state)
+            {
+                case CharacterState.Idle:
+                    PlayIdle();
+                    break;
+                case CharacterState.Aiming:
+                    PlayAiming();
+                    break;
+                case CharacterState.Shooting:
+                    PlayShot();
+                    break;
+                case CharacterState.Reloading:
+                    PlayReloading();
+                    break;
+                case CharacterState.Death:
+                    PlayDeath();
+                    break;
+            }
         }
 
-		public void PlayReloading(float reloadDuration)
+		private void PlayIdle()
 		{
-            Animator.SetBool("aiming", true);
-			Animator.SetBool("reloading", true);
-            Animator.SetFloat("reload_time", reloadDuration);
+            _animator.SetBool("aiming", false);
+            _animator.SetBool("reloading", false);
         }
 
-		public void PlayDeath()
+        private void PlayAiming()
 		{
-            Animator.SetTrigger("die");
+            _animator.SetBool("aiming", true);
+            _animator.SetBool("reloading", false);
+        }
+
+        private void PlayShot()
+        {
+            _animator.SetTrigger("shoot");
+        }
+
+        private void PlayReloading()
+		{
+            _animator.SetBool("aiming", true);
+			_animator.SetBool("reloading", true);
+            _animator.SetFloat("reload_time", _reloadingDurationMultiplier * _weapon.GetConfig().GetReloadTime());
+        }
+
+        private void PlayDeath()
+		{
+            _animator.SetTrigger("die");
         }
     }
 }

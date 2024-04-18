@@ -13,18 +13,9 @@ namespace Scorewarrior.Test.Models
         private readonly Weapon _weapon;
         private readonly Battlefield _battlefield;
 
-        private State _state;
+        private CharacterState _state;
         private Character _currentTarget;
         private float _time;
-
-        private enum State
-        {
-            Idle,
-            Aiming,
-            Shooting,
-            Reloading,
-            Death
-        }
 
         public Character(CharacterPrefab prefab, Weapon weapon, Battlefield battlefield)
         {
@@ -48,8 +39,8 @@ namespace Scorewarrior.Test.Models
             }
             if (!IsAlive)
             {
-                _state = State.Death;
-                Prefab.PlayDeath();
+                _state = CharacterState.Death;
+                Prefab.HandleState(_state);
             }
         }
 
@@ -61,19 +52,19 @@ namespace Scorewarrior.Test.Models
         {
             if (!IsAlive)
                 return;
-            
+
             switch (_state)
             {
-                case State.Idle:
+                case CharacterState.Idle:
                     HandleIdleState();
                     break;
-                case State.Aiming:
+                case CharacterState.Aiming:
                     HandleAimingState(deltaTime);
                     break;
-                case State.Shooting:
+                case CharacterState.Shooting:
                     HandleShootingState(deltaTime);
                     break;
-                case State.Reloading:
+                case CharacterState.Reloading:
                     HandleReloadingState(deltaTime);
                     break;
             }
@@ -81,11 +72,11 @@ namespace Scorewarrior.Test.Models
 
         private void HandleIdleState()
         {
-            Prefab.PlayIdle();
+            Prefab.HandleState(_state);
             if (_battlefield.TryGetNearestAliveEnemy(this, out Character target))
             {
                 _currentTarget = target;
-                _state = State.Aiming;
+                _state = CharacterState.Aiming;
                 _time = Prefab.GetComponent<CharacterDescriptor>().AimTime;
                 Prefab.transform.LookAt(_currentTarget.Position);
             }
@@ -93,7 +84,7 @@ namespace Scorewarrior.Test.Models
 
         private void HandleAimingState(float deltaTime)
         {
-            Prefab.PlayAiming();
+            Prefab.HandleState(_state);
             if (_currentTarget != null && _currentTarget.IsAlive)
             {
                 if (_time > 0)
@@ -102,20 +93,20 @@ namespace Scorewarrior.Test.Models
                 }
                 else
                 {
-                    _state = State.Shooting;
+                    _state = CharacterState.Shooting;
                     _time = 0;
                 }
             }
             else
             {
-                _state = State.Idle;
+                _state = CharacterState.Idle;
                 _time = 0;
             }
         }
 
         private void HandleShootingState(float deltaTime)
         {
-            Prefab.PlayAiming();
+            Prefab.HandleState(CharacterState.Aiming);
             if (_currentTarget != null && _currentTarget.IsAlive)
             {
                 if (_weapon.HasAmmo)
@@ -127,7 +118,7 @@ namespace Scorewarrior.Test.Models
                                 random <= _weapon.Prefab.GetConfig().GetAccuracy() &&
                                 random >= _currentTarget.Prefab.GetComponent<CharacterDescriptor>().Dexterity;
                         _weapon.Fire(_currentTarget, hit);
-                        Prefab.PlayShot();
+                        Prefab.HandleState(_state);
                     }
                     else
                     {
@@ -136,19 +127,19 @@ namespace Scorewarrior.Test.Models
                 }
                 else
                 {
-                    _state = State.Reloading;
+                    _state = CharacterState.Reloading;
                     _time = _weapon.Prefab.GetConfig().GetReloadTime();
                 }
             }
             else
             {
-                _state = State.Idle;
+                _state = CharacterState.Idle;
             }
         }
 
         private void HandleReloadingState(float deltaTime)
         {
-            Prefab.PlayReloading(_weapon.Prefab.GetConfig().GetReloadTime() / 3.3f);
+            Prefab.HandleState(_state);
             if (_time > 0)
             {
                 _time -= deltaTime;
@@ -157,11 +148,11 @@ namespace Scorewarrior.Test.Models
             {
                 if (_currentTarget != null && _currentTarget.IsAlive)
                 {
-                    _state = State.Shooting;
+                    _state = CharacterState.Shooting;
                 }
                 else
                 {
-                    _state = State.Idle;
+                    _state = CharacterState.Idle;
                 }
                 _weapon.Reload();
                 _time = 0;

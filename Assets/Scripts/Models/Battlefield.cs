@@ -102,7 +102,7 @@ namespace Scorewarrior.Test.Models
 		{
 			CharacterPrefab character = Object.Instantiate(prefab);
 			character.transform.position = position;
-			return new Character(character, new Weapon(character.Weapon), battlefield);
+			return new Character(character, new Weapon(character.GetWeapon()), battlefield);
 		}
 	}
 }

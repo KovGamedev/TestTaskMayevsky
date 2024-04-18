@@ -91,9 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f106856823f42fc4ebee584045cccc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 7198119111691828770}
-  Animator: {fileID: 8057295139655215879}
+  _weapon: {fileID: 7198119111691828770}
+  _animator: {fileID: 8057295139655215879}
   _rightPalm: {fileID: 4939860578546263156}
+  _reloadingDurationMultiplier: 0.3
 --- !u!114 &7659365502223985779
 MonoBehaviour:
   m_ObjectHideFlags: 0
