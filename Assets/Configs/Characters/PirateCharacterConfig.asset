@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef61aea7d5ee1b4c8e95a121d58e4b4, type: 3}
   m_Name: PirateCharacterConfig
   m_EditorClassIdentifier: 
-  _accuracy: 0
-  _dexterity: 0
-  _maxHealth: 0
-  _maxArmor: 0
-  _aimTime: 0
+  _accuracy: 0.85
+  _dexterity: 0.2
+  _maxHealth: 100
+  _maxArmor: 100
+  _aimTime: 2

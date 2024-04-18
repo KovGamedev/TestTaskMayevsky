@@ -10,7 +10,6 @@ namespace Scorewarrior.Test.Models
         public float Armor { get; set; }
         public CharacterPrefab Prefab { get; private set; }
 
-
         private readonly Weapon _weapon;
         private readonly Battlefield _battlefield;
 
