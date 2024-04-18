@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 3900042163149813639}
   - component: {fileID: 5892142783300754779}
   - component: {fileID: 8106324397151360445}
-  - component: {fileID: 7659365502223985779}
   m_Layer: 8
   m_Name: Indian
   m_TagString: Untagged
@@ -95,23 +94,7 @@ MonoBehaviour:
   _animator: {fileID: 8057295139655215879}
   _rightPalm: {fileID: 4939860578546263156}
   _reloadingDurationMultiplier: 0.3
---- !u!114 &7659365502223985779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19389303171958164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd16e9549f447c8deb44059966bf79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Accuracy: 0.95
-  Dexterity: 0.1
-  MaxHealth: 100
-  MaxArmor: 150
-  AimTime: 4
+  _config: {fileID: 11400000, guid: 1d479700a38b9ea4aadc93357c692103, type: 2}
 --- !u!1 &176148652620336383
 GameObject:
   m_ObjectHideFlags: 0

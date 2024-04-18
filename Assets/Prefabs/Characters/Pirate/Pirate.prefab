@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4242024731976813591}
   - component: {fileID: 4105724476058036713}
   - component: {fileID: 6969867628901760352}
-  - component: {fileID: 7098091886320096997}
   m_Layer: 8
   m_Name: Pirate
   m_TagString: Untagged
@@ -64,23 +63,7 @@ MonoBehaviour:
   _animator: {fileID: 9104473887299627595}
   _rightPalm: {fileID: 497086688545865810}
   _reloadingDurationMultiplier: 0.3
---- !u!114 &7098091886320096997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3534475785278328611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd16e9549f447c8deb44059966bf79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Accuracy: 0.85
-  Dexterity: 0.2
-  MaxHealth: 100
-  MaxArmor: 100
-  AimTime: 2
+  _config: {fileID: 11400000, guid: 02bb1dbeafb878546852344cb2652948, type: 2}
 --- !u!1001 &204051381636911772
 PrefabInstance:
   m_ObjectHideFlags: 0

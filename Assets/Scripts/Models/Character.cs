@@ -10,6 +10,7 @@ namespace Scorewarrior.Test.Models
         public float Armor { get; set; }
         public CharacterPrefab Prefab { get; private set; }
 
+
         private readonly Weapon _weapon;
         private readonly Battlefield _battlefield;
 
@@ -22,10 +23,11 @@ namespace Scorewarrior.Test.Models
             Prefab = prefab;
             _weapon = weapon;
             _battlefield = battlefield;
-            CharacterDescriptor descriptor = Prefab.GetComponent<CharacterDescriptor>();
-            Health = descriptor.MaxHealth;
-            Armor = descriptor.MaxArmor;
+            var config = Prefab.GetConfig();
+            Health = config.GetMaxHealth();
+            Armor = config.GetMaxArmor();
         }
+
 
         public void GetDamage(float damage)
         {
@@ -77,7 +79,7 @@ namespace Scorewarrior.Test.Models
             {
                 _currentTarget = target;
                 _state = CharacterState.Aiming;
-                _time = Prefab.GetComponent<CharacterDescriptor>().AimTime;
+                _time = Prefab.GetConfig().GetAimTime();
                 Prefab.transform.LookAt(_currentTarget.Position);
             }
         }
@@ -113,10 +115,10 @@ namespace Scorewarrior.Test.Models
                 {
                     if (_weapon.IsReady)
                     {
-                        float random = Random.Range(0.0f, 1.0f);
-                        bool hit = random <= Prefab.GetComponent<CharacterDescriptor>().Accuracy &&
+                        float random = Random.value;
+                        bool hit = random <= Prefab.GetConfig().GetAccuracy() &&
                                 random <= _weapon.Prefab.GetConfig().GetAccuracy() &&
-                                random >= _currentTarget.Prefab.GetComponent<CharacterDescriptor>().Dexterity;
+                                random >= _currentTarget.Prefab.GetConfig().GetDexterity();
                         _weapon.Fire(_currentTarget, hit);
                         Prefab.HandleState(_state);
                     }

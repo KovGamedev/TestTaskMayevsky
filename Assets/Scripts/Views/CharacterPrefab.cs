@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scorewarrior.Test.Descriptors;
+using UnityEngine;
 
 namespace Scorewarrior.Test.Views
 {
@@ -8,8 +9,11 @@ namespace Scorewarrior.Test.Views
 		[SerializeField] private Animator _animator;
 		[SerializeField] private Transform _rightPalm;
         [SerializeField] private float _reloadingDurationMultiplier;
+        [SerializeField] private CharacterConfig _config;
 
         public WeaponPrefab GetWeapon() => _weapon;
+
+        public CharacterConfig GetConfig() => _config;
 
         public void HandleState(CharacterState state)
         {

@@ -107,7 +107,6 @@ GameObject:
   - component: {fileID: 5789497461648916830}
   - component: {fileID: 2182593383388764272}
   - component: {fileID: 4257496716420809272}
-  - component: {fileID: 1611563776673867293}
   m_Layer: 8
   m_Name: Sniper
   m_TagString: Untagged
@@ -160,23 +159,7 @@ MonoBehaviour:
   _animator: {fileID: 8922303574578864297}
   _rightPalm: {fileID: 4632178714803785565}
   _reloadingDurationMultiplier: 0.3
---- !u!114 &1611563776673867293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630610149977817967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd16e9549f447c8deb44059966bf79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Accuracy: 0.95
-  Dexterity: 0.15
-  MaxHealth: 100
-  MaxArmor: 100
-  AimTime: 3.5
+  _config: {fileID: 11400000, guid: b31951d0bf658654a8f1940335b2cc42, type: 2}
 --- !u!1 &869198241244872633
 GameObject:
   m_ObjectHideFlags: 0

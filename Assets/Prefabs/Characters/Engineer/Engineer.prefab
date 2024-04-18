@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3900042163149813639}
   - component: {fileID: 5892142783300754779}
   - component: {fileID: 7873495124653106676}
-  - component: {fileID: 1091872874136495737}
   m_Layer: 8
   m_Name: Engineer
   m_TagString: Untagged
@@ -64,23 +63,7 @@ MonoBehaviour:
   _animator: {fileID: 7017108912382628868}
   _rightPalm: {fileID: 1864015352317427229}
   _reloadingDurationMultiplier: 0.3
---- !u!114 &1091872874136495737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19389303171958164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd16e9549f447c8deb44059966bf79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Accuracy: 0.8
-  Dexterity: 0.1
-  MaxHealth: 100
-  MaxArmor: 200
-  AimTime: 2
+  _config: {fileID: 11400000, guid: 0c2ae12eb4e47e146b97faaa8339a656, type: 2}
 --- !u!1001 &5298731469487043999
 PrefabInstance:
   m_ObjectHideFlags: 0

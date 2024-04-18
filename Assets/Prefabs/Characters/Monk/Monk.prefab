@@ -1024,7 +1024,6 @@ GameObject:
   - component: {fileID: 8971893856514940644}
   - component: {fileID: 7601522590935233284}
   - component: {fileID: 1552500931476317857}
-  - component: {fileID: 3875004563385990025}
   m_Layer: 8
   m_Name: Monk
   m_TagString: Untagged
@@ -1077,23 +1076,7 @@ MonoBehaviour:
   _animator: {fileID: 3201467491750498114}
   _rightPalm: {fileID: 6112073874855535963}
   _reloadingDurationMultiplier: 0.3
---- !u!114 &3875004563385990025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8605363530439632902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd16e9549f447c8deb44059966bf79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Accuracy: 0.85
-  Dexterity: 0.2
-  MaxHealth: 100
-  MaxArmor: 100
-  AimTime: 2.5
+  _config: {fileID: 11400000, guid: 17ef2ad5e54a3744c917762431fc8a4e, type: 2}
 --- !u!1 &9136827948821724094
 GameObject:
   m_ObjectHideFlags: 0
