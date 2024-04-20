@@ -16,9 +16,12 @@ namespace Scorewarrior.Test.Views
         private Vector3 _direction;
         private float _totalDistance;
         private float _currentDistance;
+        private BulletPrefabDelegate _lifeEndHandler;
 
-        public void Init(WeaponPrefab weapon, Character target, bool hit)
+        public void Init(WeaponPrefab weapon, Character target, bool hit, Transform barrelTrandform)
         {
+            transform.position = barrelTrandform.position;
+            transform.rotation = barrelTrandform.rotation;
             _weapon = weapon;
             _target = target;
             _hit = hit;
@@ -27,6 +30,11 @@ namespace Scorewarrior.Test.Views
             _direction = Vector3.Normalize(targetPosition - transform.position);
             _totalDistance = Vector3.Distance(targetPosition, transform.position);
             _currentDistance = 0;
+        }
+
+        public void SetLifeEndHandler(BulletPrefabDelegate hitHandler)
+        {
+            _lifeEndHandler = hitHandler;
         }
 
         private void Update()
@@ -42,7 +50,7 @@ namespace Scorewarrior.Test.Views
                 {
                     _target.GetDamage(_weapon.GetConfig().GetDamage());
                 }
-                Destroy(gameObject);
+                _lifeEndHandler(this);
             }
         }
     }
