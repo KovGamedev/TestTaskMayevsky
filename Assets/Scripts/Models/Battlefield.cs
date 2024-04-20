@@ -6,15 +6,15 @@ namespace Scorewarrior.Test.Models
 {
 	public class Battlefield
 	{
-		private readonly Dictionary<uint, List<Vector3>> _spawnPositionsByTeam;
-		private readonly Dictionary<uint, List<Character>> _charactersByTeam;
+		private readonly Dictionary<Faction, List<Vector3>> _spawnPositionsByTeam;
+		private readonly Dictionary<Faction, List<Character>> _charactersByTeam;
 
 		private bool _paused;
 
-		public Battlefield(Dictionary<uint, List<Vector3>> spawnPositionsByTeam)
+		public Battlefield(Dictionary<Faction, List<Vector3>> spawnPositionsByTeam)
 		{
 			_spawnPositionsByTeam = spawnPositionsByTeam;
-			_charactersByTeam = new Dictionary<uint, List<Character>>();
+			_charactersByTeam = new Dictionary<Faction, List<Character>>();
 		}
 
 		public void Start(CharacterPrefab[] prefabs)
@@ -32,7 +32,7 @@ namespace Scorewarrior.Test.Models
 				while (i < positions.Count && availablePrefabs.Count > 0)
 				{
 					int index = Random.Range(0, availablePrefabs.Count);
-					characters.Add(CreateCharacterAt(availablePrefabs[index], this, positions[i]));
+					characters.Add(CreateCharacterAt(availablePrefabs[index], this, positions[i], positionsPair.Key));
 					availablePrefabs.RemoveAt(index);
 					i++;
 				}
@@ -41,11 +41,11 @@ namespace Scorewarrior.Test.Models
 
 		public bool TryGetNearestAliveEnemy(Character character, out Character target)
 		{
-			if (TryGetTeam(character, out uint team))
+			if (TryGetTeam(character, out Faction team))
 			{
 				Character nearestEnemy = null;
 				float nearestDistance = float.MaxValue;
-				List<Character> enemies = team == 1 ? _charactersByTeam[2] : _charactersByTeam[1];
+				List<Character> enemies = team == Faction.Ally ? _charactersByTeam[Faction.Enemy] : _charactersByTeam[Faction.Ally];
 				foreach (Character enemy in enemies)
 				{
 					if (enemy.IsAlive)
@@ -65,7 +65,7 @@ namespace Scorewarrior.Test.Models
 			return false;
 		}
 
-		public bool TryGetTeam(Character target, out uint team)
+		public bool TryGetTeam(Character target, out Faction team)
 		{
 			foreach (var charactersPair in _charactersByTeam)
 			{
@@ -98,11 +98,10 @@ namespace Scorewarrior.Test.Models
 			}
 		}
 
-		private static Character CreateCharacterAt(CharacterPrefab prefab, Battlefield battlefield, Vector3 position)
+		private static Character CreateCharacterAt(CharacterPrefab prefab, Battlefield battlefield, Vector3 position, Faction faction)
 		{
-			CharacterPrefab character = Object.Instantiate(prefab);
-			character.transform.position = position;
-			return new Character(character, new Weapon(character.GetWeapon()), battlefield);
+			CharacterPrefab character = Object.Instantiate(prefab, position, Quaternion.identity);
+			return new Character(character, new Weapon(character.GetWeapon()), battlefield, faction);
 		}
 	}
 }

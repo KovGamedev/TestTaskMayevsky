@@ -10,6 +10,17 @@ namespace Scorewarrior.Test.Views
 		[SerializeField] private Transform _rightPalm;
         [SerializeField] private float _reloadingDurationMultiplier;
         [SerializeField] private CharacterConfig _config;
+        [SerializeField] private CharacterBars _bars;
+
+        public void ResetState(Faction faction)
+        {
+            _bars.ResetBars(faction);
+        }
+
+        public void HandleDamage(float newArmor, float newHealth)
+        {
+            _bars.SetValues(newArmor / _config.GetMaxArmor(), newHealth / _config.GetMaxHealth());
+        }
 
         public WeaponPrefab GetWeapon() => _weapon;
 
@@ -64,6 +75,12 @@ namespace Scorewarrior.Test.Views
         private void PlayDeath()
 		{
             _animator.SetTrigger("die");
+        }
+
+        public void HandleNewTarget(Transform target)
+        {
+            transform.LookAt(target.position);
+            _bars.RotateToCamera();
         }
     }
 }

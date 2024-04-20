@@ -7,16 +7,14 @@ namespace Scorewarrior.Test
 {
 	public class Bootstrapper : MonoBehaviour
 	{
-		[SerializeField]
-		private CharacterPrefab[] _characters;
-		[SerializeField]
-		private SpawnPoint[] _spawns;
+		[SerializeField] private CharacterPrefab[] _characters;
+		[SerializeField] private SpawnPoint[] _spawns;
 
 		private Battlefield _battlefield;
 
 		private void Start()
 		{
-			var spawnPositionsByTeam = new Dictionary<uint, List<Vector3>>();
+			var spawnPositionsByTeam = new Dictionary<Faction, List<Vector3>>();
 			foreach (SpawnPoint spawn in _spawns)
 			{
 				var team = spawn.GetTeam();

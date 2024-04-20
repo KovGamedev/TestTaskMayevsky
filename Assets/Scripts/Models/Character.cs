@@ -17,9 +17,10 @@ namespace Scorewarrior.Test.Models
         private Character _currentTarget;
         private float _time;
 
-        public Character(CharacterPrefab prefab, Weapon weapon, Battlefield battlefield)
+        public Character(CharacterPrefab prefab, Weapon weapon, Battlefield battlefield, Faction faction)
         {
             Prefab = prefab;
+            Prefab.ResetState(faction);
             _weapon = weapon;
             _battlefield = battlefield;
             var config = Prefab.GetConfig();
@@ -32,12 +33,13 @@ namespace Scorewarrior.Test.Models
         {
             if (Armor > 0)
             {
-                Armor -= damage;
+                Armor = Mathf.Clamp(Armor - damage, 0, Armor);
             }
             else if (Health > 0)
             {
-                Health -= damage;
+                Health = Mathf.Clamp(Health - damage, 0, Health);
             }
+            Prefab.HandleDamage(Armor, Health);
             if (!IsAlive)
             {
                 _state = CharacterState.Death;
@@ -79,7 +81,7 @@ namespace Scorewarrior.Test.Models
                 _currentTarget = target;
                 _state = CharacterState.Aiming;
                 _time = Prefab.GetConfig().GetAimTime();
-                Prefab.transform.LookAt(_currentTarget.Position);
+                Prefab.HandleNewTarget(_currentTarget.Prefab.transform);
             }
         }
 
