@@ -1,4 +1,5 @@
-﻿using Scorewarrior.Test.Models;
+﻿using Scorewarrior.Test.Configs;
+using Scorewarrior.Test.Models;
 using UnityEngine;
 
 namespace Scorewarrior.Test.Views

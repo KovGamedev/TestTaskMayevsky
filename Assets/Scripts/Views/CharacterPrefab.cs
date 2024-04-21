@@ -1,4 +1,4 @@
-﻿using Scorewarrior.Test.Descriptors;
+﻿using Scorewarrior.Test.Configs;
 using UnityEngine;
 
 namespace Scorewarrior.Test.Views
@@ -17,9 +17,9 @@ namespace Scorewarrior.Test.Views
             _bars.ResetBars(faction);
         }
 
-        public void HandleDamage(float newArmor, float newHealth)
+        public void HandleDamage(float armorPercent, float healthPercent)
         {
-            _bars.SetValues(newArmor / _config.GetMaxArmor(), newHealth / _config.GetMaxHealth());
+            _bars.SetValues(armorPercent, healthPercent);
         }
 
         public WeaponPrefab GetWeapon() => _weapon;

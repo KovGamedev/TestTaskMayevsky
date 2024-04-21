@@ -1,4 +1,5 @@
-﻿using Scorewarrior.Test.Views;
+﻿using Scorewarrior.Test.Configs;
+using Scorewarrior.Test.Views;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,24 +14,32 @@ namespace Scorewarrior.Test.Models
         private readonly Weapon _weapon;
         private readonly Battlefield _battlefield;
 
+        private UnityEvent _deathEvent = new();
         private CharacterState _state;
         private Character _currentTarget;
         private float _time;
+        private float _maxHealth;
+        private float _maxArmor;
         private Faction _faction;
-        private UnityEvent _deathEvent = new();
+        private float _accuracy;
+        private float _dexterity;
+        private float _aimTime;
 
-        public Character(CharacterPrefab prefab, Weapon weapon, Battlefield battlefield, Faction faction)
+        public Character(
+            CharacterPrefab prefab,
+            Weapon weapon,
+            Battlefield battlefield,
+            Faction faction,
+            CharacterModifierConfig[] characterModifiers
+        )
         {
             Prefab = prefab;
             _faction = faction;
             Prefab.ResetState(_faction);
             _weapon = weapon;
             _battlefield = battlefield;
-            var config = Prefab.GetConfig();
-            Health = config.GetMaxHealth();
-            Armor = config.GetMaxArmor();
+            HandleConfigs(Prefab.GetConfig(), characterModifiers);
         }
-
 
         public void GetDamage(float damage)
         {
@@ -42,7 +51,7 @@ namespace Scorewarrior.Test.Models
             {
                 Health = Mathf.Clamp(Health - damage, 0, Health);
             }
-            Prefab.HandleDamage(Armor, Health);
+            Prefab.HandleDamage(Armor / _maxArmor, Health / _maxHealth);
             if (!IsAlive)
             {
                 _state = CharacterState.Death;
@@ -80,6 +89,27 @@ namespace Scorewarrior.Test.Models
             }
         }
 
+        private void HandleConfigs(CharacterConfig config, CharacterModifierConfig[] characterModifiers)
+        {
+            Health = config.GetMaxHealth();
+            Armor = config.GetMaxArmor();
+            _accuracy = config.GetAccuracy();
+            _dexterity = config.GetDexterity();
+            _aimTime = config.GetAimTime();
+
+            for (var i = 0; i < config.GetModifiersQuantity(); i++)
+            {
+                var modifier = characterModifiers[Random.Range(0, characterModifiers.Length)];
+                Health = Mathf.Clamp(Health + modifier.GetHealth(), 0f, Health + modifier.GetHealth());
+                Armor = Mathf.Clamp(Armor + modifier.GetArmor(), 0f, Armor + modifier.GetArmor());
+                _accuracy = Mathf.Clamp(_accuracy + modifier.GetAccuracy(), 0f, 1f);
+                _dexterity = Mathf.Clamp(_dexterity + modifier.GetDexterity(), 0f, 1f);
+                _aimTime = Mathf.Clamp(_aimTime + modifier.GetAimTime(), 0f, _aimTime + modifier.GetAimTime());
+            }
+            _maxHealth = Health;
+            _maxArmor = Armor;
+        }
+
         private void HandleIdleState()
         {
             Prefab.HandleState(_state);
@@ -87,7 +117,7 @@ namespace Scorewarrior.Test.Models
             {
                 _currentTarget = target;
                 _state = CharacterState.Aiming;
-                _time = Prefab.GetConfig().GetAimTime();
+                _time = _aimTime;
                 Prefab.HandleNewTarget(_currentTarget.Prefab.transform);
             }
         }
@@ -124,9 +154,7 @@ namespace Scorewarrior.Test.Models
                     if (_weapon.IsReady)
                     {
                         float random = Random.value;
-                        bool hit = random <= Prefab.GetConfig().GetAccuracy() &&
-                                random <= _weapon.Prefab.GetConfig().GetAccuracy() &&
-                                random >= _currentTarget.Prefab.GetConfig().GetDexterity();
+                        bool hit = random <= _accuracy && random <= _weapon.Accuracy && random >= _dexterity;
                         _weapon.Fire(_currentTarget, hit);
                         Prefab.HandleState(_state);
                     }
@@ -138,7 +166,7 @@ namespace Scorewarrior.Test.Models
                 else
                 {
                     _state = CharacterState.Reloading;
-                    _time = _weapon.Prefab.GetConfig().GetReloadTime();
+                    _time = _weapon.ReloadTime;
                 }
             }
             else

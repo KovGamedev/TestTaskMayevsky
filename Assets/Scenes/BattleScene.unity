@@ -4849,6 +4849,18 @@ MonoBehaviour:
   - {fileID: 1024951297}
   - {fileID: 1795119211}
   - {fileID: 1890998154}
+  _charactersModifiers:
+  - {fileID: 11400000, guid: 3c3ff98d1d17f4b488019fbc816493bc, type: 2}
+  - {fileID: 11400000, guid: d04f1d24665e8834e9514b8457fc4a22, type: 2}
+  - {fileID: 11400000, guid: 8d516053dd97c2341aa4b84f47f57132, type: 2}
+  - {fileID: 11400000, guid: 244eef88a150d0a43b4177b458d73ce7, type: 2}
+  - {fileID: 11400000, guid: 4e435e316a6a307419ea2899e4700f29, type: 2}
+  _weaponModifiers:
+  - {fileID: 11400000, guid: fd2f8f22e80b3e240a1abcc8a8ffb3ce, type: 2}
+  - {fileID: 11400000, guid: cec34021538724741aaf53d08b20f3ea, type: 2}
+  - {fileID: 11400000, guid: 0922dc6739b44f54cb3ad156d6754a7a, type: 2}
+  - {fileID: 11400000, guid: 172d6d671db97da40bd816d2de15538a, type: 2}
+  - {fileID: 11400000, guid: fa4628e08a79c65498132a98f0756935, type: 2}
   _teamLost:
     m_PersistentCalls:
       m_Calls:

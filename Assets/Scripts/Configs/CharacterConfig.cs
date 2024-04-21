@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 
-namespace Scorewarrior.Test.Descriptors
+namespace Scorewarrior.Test.Configs
 {
     [CreateAssetMenu(fileName = "CharacterConfig", menuName = "ScriptableObjects/CharacterConfig")]
     public class CharacterConfig : ScriptableObject
     {
-		[SerializeField] private float _accuracy;
-		[SerializeField] private float _dexterity;
-		[SerializeField] private float _maxHealth;
-		[SerializeField] private float _maxArmor;
-        [SerializeField] private float _aimTime;
+		[SerializeField, Range(0f, 1f)] private float _accuracy;
+		[SerializeField, Range(0f, 1f)] private float _dexterity;
+		[SerializeField, Min(0f)] private float _maxHealth;
+		[SerializeField, Min(0f)] private float _maxArmor;
+        [SerializeField, Min(0f)] private float _aimTime;
+        [SerializeField, Min(0f)] private int _modifiersQuantity;
 
         public float GetAccuracy() => _accuracy;
 
@@ -20,5 +21,7 @@ namespace Scorewarrior.Test.Descriptors
         public float GetMaxArmor() => _maxArmor;
 
         public float GetAimTime() => _aimTime;
+
+        public int GetModifiersQuantity() => _modifiersQuantity;
     }
 }

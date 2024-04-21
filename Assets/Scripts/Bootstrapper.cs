@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Scorewarrior.Test.Configs;
 using Scorewarrior.Test.Models;
 using Scorewarrior.Test.Views;
 using UnityEngine;
@@ -10,6 +12,8 @@ namespace Scorewarrior.Test
 	{
 		[SerializeField] private CharacterPrefab[] _characters;
 		[SerializeField] private SpawnPoint[] _spawns;
+        [SerializeField] private CharacterModifierConfig[] _charactersModifiers;
+        [SerializeField] private WeaponModifierConfig[] _weaponModifiers;
         [SerializeField] private UnityEvent _teamLost;
 
         private Battlefield _battlefield;
@@ -29,7 +33,11 @@ namespace Scorewarrior.Test
 					spawnPositionsByTeam.Add(team, new List<Vector3>{ spawn.transform.position });
 				}
 			}
-			_battlefield = new Battlefield(spawnPositionsByTeam);
+            var characterModifiersCopy = new CharacterModifierConfig[_charactersModifiers.Length];
+            Array.Copy(_charactersModifiers, characterModifiersCopy, _charactersModifiers.Length);
+            var weaponModifiersCopy = new WeaponModifierConfig[_weaponModifiers.Length];
+            Array.Copy(_weaponModifiers, weaponModifiersCopy, _weaponModifiers.Length);
+			_battlefield = new Battlefield(spawnPositionsByTeam, characterModifiersCopy, weaponModifiersCopy);
 			_battlefield.Start(_characters, _teamLost);
 		}
 

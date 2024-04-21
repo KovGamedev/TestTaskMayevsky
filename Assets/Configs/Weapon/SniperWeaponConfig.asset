@@ -17,3 +17,4 @@ MonoBehaviour:
   _fireRate: 0.1
   _clipSize: 5
   _reloadTime: 6
+  _modifiersQuantity: 2

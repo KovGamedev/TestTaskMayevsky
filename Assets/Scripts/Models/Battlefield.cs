@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Scorewarrior.Test.Configs;
 using Scorewarrior.Test.Views;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,15 +11,22 @@ namespace Scorewarrior.Test.Models
         private readonly Dictionary<Faction, List<Vector3>> _spawnPositionsByTeam;
         private readonly Dictionary<Faction, List<Character>> _charactersByTeam;
         private readonly Dictionary<Faction, int> _deadCharactersByTeam;
+        private readonly CharacterModifierConfig[] _characterModifiers;
+        private readonly WeaponModifierConfig[] _weaponModifiers;
 
         private bool _paused;
 
-
-        public Battlefield(Dictionary<Faction, List<Vector3>> spawnPositionsByTeam)
+        public Battlefield(
+            Dictionary<Faction, List<Vector3>> spawnPositionsByTeam,
+            CharacterModifierConfig[] characterModifiers,
+            WeaponModifierConfig[] weaponModifiers
+        )
         {
             _spawnPositionsByTeam = spawnPositionsByTeam;
             _charactersByTeam = new();
             _deadCharactersByTeam = new();
+            _characterModifiers = characterModifiers;
+            _weaponModifiers = weaponModifiers;
         }
 
         public void Start(CharacterPrefab[] prefabs, UnityEvent teamLostEvent)
@@ -124,10 +132,10 @@ namespace Scorewarrior.Test.Models
             }
         }
 
-        private static Character CreateCharacterAt(CharacterPrefab prefab, Battlefield battlefield, Vector3 position, Faction faction)
+        private Character CreateCharacterAt(CharacterPrefab prefab, Battlefield battlefield, Vector3 position, Faction faction)
         {
             CharacterPrefab character = Object.Instantiate(prefab, position, Quaternion.identity);
-            return new Character(character, new Weapon(character.GetWeapon()), battlefield, faction);
+            return new Character(character, new Weapon(character.GetWeapon(), _weaponModifiers), battlefield, faction, _characterModifiers);
         }
     }
 }

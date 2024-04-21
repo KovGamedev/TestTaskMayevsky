@@ -17,3 +17,4 @@ MonoBehaviour:
   _maxHealth: 100
   _maxArmor: 100
   _aimTime: 2
+  _modifiersQuantity: 3
