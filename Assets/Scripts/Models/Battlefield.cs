@@ -115,7 +115,7 @@ namespace Scorewarrior.Test.Models
             {
                 foreach (var character in characterPair.Value)
                 {
-                    MonoBehaviour.Destroy(character.Prefab);
+                    MonoBehaviour.Destroy(character.Prefab.gameObject);
                 }
             }
         }
