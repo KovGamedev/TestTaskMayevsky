@@ -28,7 +28,7 @@ namespace Scorewarrior.Test.Views
             _bulletsPool = new Pool<BulletPrefab>(
                 () => {
                     var bullet = Instantiate(_bulletPrefab).GetComponent<BulletPrefab>();
-                    bullet.SetLifeEndHandler((BulletPrefab bullet) => _bulletsPool.Release(bullet));
+                    bullet.GetTargetReachedEvent().AddListener((BulletPrefab bullet) => _bulletsPool.Release(bullet));
                     return bullet;
                 },
                 (BulletPrefab bullet) => bullet.gameObject.SetActive(true),

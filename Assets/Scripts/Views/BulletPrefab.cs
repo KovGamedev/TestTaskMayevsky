@@ -1,6 +1,7 @@
-﻿using Scorewarrior.Test.Descriptors;
-using Scorewarrior.Test.Models;
+﻿using Scorewarrior.Test.Models;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scorewarrior.Test.Views
 {
@@ -16,7 +17,7 @@ namespace Scorewarrior.Test.Views
         private Vector3 _direction;
         private float _totalDistance;
         private float _currentDistance;
-        private BulletPrefabDelegate _lifeEndHandler;
+        private UnityEvent<BulletPrefab> _targetReachedEvent = new();
 
         public void Init(WeaponPrefab weapon, Character target, bool hit, Transform barrelTrandform)
         {
@@ -32,10 +33,7 @@ namespace Scorewarrior.Test.Views
             _currentDistance = 0;
         }
 
-        public void SetLifeEndHandler(BulletPrefabDelegate hitHandler)
-        {
-            _lifeEndHandler = hitHandler;
-        }
+        public UnityEvent<BulletPrefab> GetTargetReachedEvent() => _targetReachedEvent;
 
         private void Update()
         {
@@ -50,8 +48,13 @@ namespace Scorewarrior.Test.Views
                 {
                     _target.GetDamage(_weapon.GetConfig().GetDamage());
                 }
-                _lifeEndHandler(this);
+                _targetReachedEvent.Invoke(this);
             }
+        }
+
+        private void OnDestroy()
+        {
+            _targetReachedEvent.RemoveAllListeners();
         }
     }
 }

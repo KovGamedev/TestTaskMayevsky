@@ -12,7 +12,7 @@ namespace Scorewarrior.Test
 
 		private Battlefield _battlefield;
 
-		private void Start()
+		public void StartBattle()
 		{
 			var spawnPositionsByTeam = new Dictionary<Faction, List<Vector3>>();
 			foreach (SpawnPoint spawn in _spawns)
@@ -26,7 +26,6 @@ namespace Scorewarrior.Test
 				{
 					spawnPositionsByTeam.Add(team, new List<Vector3>{ spawn.transform.position });
 				}
-				Destroy(spawn.gameObject);
 			}
 			_battlefield = new Battlefield(spawnPositionsByTeam);
 			_battlefield.Start(_characters);
@@ -34,6 +33,8 @@ namespace Scorewarrior.Test
 
         private void Update()
 		{
+			if (_battlefield == null)
+				return;
 			_battlefield.Update(Time.deltaTime);
 		}
 	}

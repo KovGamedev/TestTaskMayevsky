@@ -85,15 +85,15 @@ namespace Scorewarrior.Test.Models
 
 		public void Update(float deltaTime)
 		{
-			if (!_paused)
+			if (_paused)
+				return;
+
+			foreach (var charactersPair in _charactersByTeam)
 			{
-				foreach (var charactersPair in _charactersByTeam)
+				List<Character> characters = charactersPair.Value;
+				foreach (Character character in characters)
 				{
-					List<Character> characters = charactersPair.Value;
-					foreach (Character character in characters)
-					{
-						character.Update(deltaTime);
-					}
+					character.Update(deltaTime);
 				}
 			}
 		}
