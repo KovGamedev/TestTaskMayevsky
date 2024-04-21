@@ -2,6 +2,7 @@
 using Scorewarrior.Test.Models;
 using Scorewarrior.Test.Views;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scorewarrior.Test
 {
@@ -9,8 +10,9 @@ namespace Scorewarrior.Test
 	{
 		[SerializeField] private CharacterPrefab[] _characters;
 		[SerializeField] private SpawnPoint[] _spawns;
+        [SerializeField] private UnityEvent _teamLost;
 
-		private Battlefield _battlefield;
+        private Battlefield _battlefield;
 
 		public void StartBattle()
 		{
@@ -28,8 +30,15 @@ namespace Scorewarrior.Test
 				}
 			}
 			_battlefield = new Battlefield(spawnPositionsByTeam);
-			_battlefield.Start(_characters);
+			_battlefield.Start(_characters, _teamLost);
 		}
+
+		public void ClearLevel()
+		{
+			if(_battlefield != null)
+				_battlefield.Destroy();
+            _battlefield = null;
+        }
 
         private void Update()
 		{

@@ -1,5 +1,4 @@
 ﻿using Scorewarrior.Test.Models;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 

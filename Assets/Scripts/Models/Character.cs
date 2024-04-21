@@ -1,6 +1,6 @@
-﻿using Scorewarrior.Test.Descriptors;
-using Scorewarrior.Test.Views;
+﻿using Scorewarrior.Test.Views;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scorewarrior.Test.Models
 {
@@ -16,11 +16,14 @@ namespace Scorewarrior.Test.Models
         private CharacterState _state;
         private Character _currentTarget;
         private float _time;
+        private Faction _faction;
+        private UnityEvent _deathEvent = new();
 
         public Character(CharacterPrefab prefab, Weapon weapon, Battlefield battlefield, Faction faction)
         {
             Prefab = prefab;
-            Prefab.ResetState(faction);
+            _faction = faction;
+            Prefab.ResetState(_faction);
             _weapon = weapon;
             _battlefield = battlefield;
             var config = Prefab.GetConfig();
@@ -44,8 +47,12 @@ namespace Scorewarrior.Test.Models
             {
                 _state = CharacterState.Death;
                 Prefab.HandleState(_state);
+                _deathEvent.Invoke();
+                _deathEvent.RemoveAllListeners();
             }
         }
+
+        public UnityEvent GetDeathEvent() => _deathEvent;
 
         public bool IsAlive => Health > 0 || Armor > 0;
 
@@ -160,6 +167,11 @@ namespace Scorewarrior.Test.Models
                 _weapon.Reload();
                 _time = 0;
             }
+        }
+
+        ~Character()
+        {
+            _deathEvent.RemoveAllListeners();
         }
     }
 }
