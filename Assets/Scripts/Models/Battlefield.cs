@@ -13,6 +13,7 @@ namespace Scorewarrior.Test.Models
 
         private bool _paused;
 
+
         public Battlefield(Dictionary<Faction, List<Vector3>> spawnPositionsByTeam)
         {
             _spawnPositionsByTeam = spawnPositionsByTeam;
@@ -41,7 +42,10 @@ namespace Scorewarrior.Test.Models
                     newCharacter.GetDeathEvent().AddListener(() => {
                         _deadCharactersByTeam[characterFaction]++;
                         if (_deadCharactersByTeam[characterFaction] >= _spawnPositionsByTeam[characterFaction].Count)
+                        {
                             teamLostEvent.Invoke();
+                            _paused = true;
+                        }
                     });
                     characters.Add(newCharacter);
                     availablePrefabs.RemoveAt(index);
