@@ -64,46 +64,23 @@ namespace Scorewarrior.Test.Models
 
         public bool TryGetNearestAliveEnemy(Character character, out Character target)
         {
-            if (TryGetTeam(character, out Faction team))
+            Character nearestEnemy = null;
+            float nearestDistance = float.MaxValue;
+            var enemies = character.GetFaction() == Faction.Ally ? _charactersByTeam[Faction.Enemy] : _charactersByTeam[Faction.Ally];
+            foreach (Character enemy in enemies)
             {
-                Character nearestEnemy = null;
-                float nearestDistance = float.MaxValue;
-                List<Character> enemies = team == Faction.Ally ? _charactersByTeam[Faction.Enemy] : _charactersByTeam[Faction.Ally];
-                foreach (Character enemy in enemies)
+                if (enemy.IsAlive)
                 {
-                    if (enemy.IsAlive)
+                    float distance = Vector3.Distance(character.Position, enemy.Position);
+                    if (distance < nearestDistance)
                     {
-                        float distance = Vector3.Distance(character.Position, enemy.Position);
-                        if (distance < nearestDistance)
-                        {
-                            nearestDistance = distance;
-                            nearestEnemy = enemy;
-                        }
-                    }
-                }
-                target = nearestEnemy;
-                return target != null;
-            }
-            target = default;
-            return false;
-        }
-
-        public bool TryGetTeam(Character target, out Faction team)
-        {
-            foreach (var charactersPair in _charactersByTeam)
-            {
-                List<Character> characters = charactersPair.Value;
-                foreach (Character character in characters)
-                {
-                    if (character == target)
-                    {
-                        team = charactersPair.Key;
-                        return true;
+                        nearestDistance = distance;
+                        nearestEnemy = enemy;
                     }
                 }
             }
-            team = default;
-            return false;
+            target = nearestEnemy;
+            return target != null;
         }
 
         public void Update(float deltaTime)

@@ -67,6 +67,8 @@ namespace Scorewarrior.Test.Models
 
         public Vector3 Position => Prefab.transform.position;
 
+        public Faction GetFaction() => _faction;
+
         public void Update(float deltaTime)
         {
             if (!IsAlive)
