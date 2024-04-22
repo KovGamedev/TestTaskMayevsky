@@ -115,9 +115,12 @@ namespace Scorewarrior.Test.Models
         private void HandleIdleState()
         {
             Prefab.HandleState(_state);
-            if (_battlefield.TryGetNearestAliveEnemy(this, out Character target))
+            if ((_currentTarget == null || !_currentTarget.IsAlive) && _battlefield.TryGetNearestAliveEnemy(this, out Character target))
             {
                 _currentTarget = target;
+            }
+            if (_currentTarget != null && _currentTarget.IsAlive)
+            {
                 _state = CharacterState.Aiming;
                 _time = _aimTime;
                 Prefab.HandleNewTarget(_currentTarget.Prefab.transform);
